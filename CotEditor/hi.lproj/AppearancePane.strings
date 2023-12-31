@@ -1,0 +1,104 @@
+//
+//  AppearancePane.strings (Hindi)
+//
+//  CotEditor
+//  https://coteditor.com
+//
+//  Created by Rajdeep Singha on 2023-12-28.
+//  Localized by Rajdeep Singha
+//
+//  ---------------------------------------------------------------------------
+//
+//  © 2022-2023 1024jp
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+
+/* Class = "NSTextFieldCell"; title = "Prefer font using:"; ObjectID = "XQO-YW-cqZ"; */
+"XQO-YW-cqZ.title" = "पसंदीदा फ़ॉण्ट:";
+/* Class = "NSMenuItem"; title = "Automatically"; ObjectID = "XcC-5y-bLG"; */
+"XcC-5y-bLG.title" = "ऑटोमैटिकली";
+/* Class = "NSMenuItem"; title = "Standard"; ObjectID = "Vla-IY-EYW"; */
+"Vla-IY-EYW.title" = "साधारण";
+/* Class = "NSMenuItem"; title = "Monospaced"; ObjectID = "htL-1g-SvR"; */
+"htL-1g-SvR.title" = "मोनोस्पेस";
+
+/* Class = "NSTextFieldCell"; title = "Standard font:"; ObjectID = "Z85-S9-uID"; */
+"Z85-S9-uID.title" = "साधारण फ़ॉण्ट:";
+/* Class = "NSButtonCell"; title = "Select…"; ObjectID = "3289"; */
+"3289.title" = "चुने…";
+/* Class = "NSButtonCell"; title = "Antialias"; ObjectID = "3290"; */
+"3290.title" = "एंटीएलीयस";
+/* Class = "NSButtonCell"; title = "Ligatures"; ObjectID = "g3S-3v-6ZA"; */
+"g3S-3v-6ZA.title" = "लिगेचर";
+
+/* Class = "NSTextFieldCell"; title = "Monospaced font:"; ObjectID = "B8d-4v-fox"; */
+"B8d-4v-fox.title" = "मोनोस्पेस फ़ॉण्ट:";
+/* Class = "NSButtonCell"; title = "Select…"; ObjectID = "DSX-09-54K"; */
+"DSX-09-54K.title" = "चुने…";
+/* Class = "NSButtonCell"; title = "Antialias"; ObjectID = "3fg-x6-5T8"; */
+"3fg-x6-5T8.title" = "एंटी-एलीयस";
+/* Class = "NSButtonCell"; title = "Ligatures"; ObjectID = "AFh-3D-ZB2"; */
+"AFh-3D-ZB2.title" = "लिगेचर";
+/* Class = "NSButtonCell"; title = "Always use monospaced font"; ObjectID = "t8U-fh-Wkt"; */
+"t8U-fh-Wkt.title" = "हमेशा मोनोस्पेस फ़ॉण्ट का प्रयोग करें";
+
+/* Class = "NSTextFieldCell"; title = "Line height:"; ObjectID = "r1c-v3-qW1"; */
+"r1c-v3-qW1.title" = "पंक्तियों की ऊँचाई:";
+/* Class = "NSTextFieldCell"; title = "times"; ObjectID = "VLD-jj-zzl"; */
+"VLD-jj-zzl.title" = "गुणा";
+
+/* Class = "NSTextFieldCell"; title = "Appearance:"; ObjectID = "6KG-3a-ZuU"; */
+"6KG-3a-ZuU.title" = "प्रकटन:";
+/* Class = "NSButtonCell"; title = "Match System"; ObjectID = "apQ-au-gOC"; */
+"apQ-au-gOC.title" = "सिस्टम से मेल करें";
+/* Class = "NSButtonCell"; title = "Light"; ObjectID = "FwU-oj-kwc"; */
+"FwU-oj-kwc.title" = "हल्का";
+/* Class = "NSButtonCell"; title = "Dark"; ObjectID = "1Cg-21-kjr"; */
+"1Cg-21-kjr.title" = "गहरा";
+
+/* Class = "NSTextFieldCell"; title = "Editor opacity:"; ObjectID = "gSx-LA-TPc"; */
+"gSx-LA-TPc.title" = "एडिटर अपारदर्शिता:";
+
+
+/* Class = "NSTableColumn"; headerCell.title = "Theme"; ObjectID = "Avf-y8-wXG"; */
+"Avf-y8-wXG.headerCell.title" = "थीम";
+/* Class = "NSMenuItem"; title = "Export…"; ObjectID = "4B4-mq-8Fs"; */
+"4B4-mq-8Fs.title" = "एक्सपोर्ट करें…";
+/* Class = "NSMenuItem"; title = "Import…"; ObjectID = "gcs-B8-kPL"; */
+"gcs-B8-kPL.title" = "इम्पोर्ट करें…";
+/* Class = "NSMenuItem"; title = "Share…"; ObjectID = "w4F-0P-Rgk"; */
+"w4F-0P-Rgk.title" = "शेयर करें…";
+/* Class = "NSMenuItem"; title = "Reload All Themes"; ObjectID = "7Yp-bg-3l6"; */
+"7Yp-bg-3l6.title" = "सभी थीम फिर लोड करें";
+
+
+/* contextual menu */
+/* Class = "NSMenuItem"; title = "New Theme"; ObjectID = "sJb-7g-2FN"; */
+"sJb-7g-2FN.title" = "थीम जोड़ें";
+/* Class = "NSMenuItem"; title = "Rename"; ObjectID = "nWy-OL-CGi"; */
+"nWy-OL-CGi.title" = "नाम बदलें";
+/* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "9LW-xw-HBP"; */
+"9LW-xw-HBP.title" = "नक़ल बनाएँ";
+/* Class = "NSMenuItem"; title = "Restore"; ObjectID = "vTP-Fc-iBF"; */
+"vTP-Fc-iBF.title" = "वापस रखें";
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "WNG-Ai-RdG"; */
+"WNG-Ai-RdG.title" = "डिलीट करें";
+/* Class = "NSMenuItem"; title = "Export…"; ObjectID = "ueG-D7-DSV"; */
+"ueG-D7-DSV.title" = "एक्सपोर्ट करें…";
+/* Class = "NSMenuItem"; title = "Share…"; ObjectID = "pTV-O2-2db"; */
+"pTV-O2-2db.title" = "शेयर करें…";
+/* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "UMs-gY-YHE"; */
+"UMs-gY-YHE.title" = "Finder में दिखाएँ";
+/* Class = "NSMenuItem"; title = "Import…"; ObjectID = "52n-xG-4ZL"; */
+"52n-xG-4ZL.title" = "इम्पोर्ट करें…";

@@ -1,0 +1,84 @@
+//
+//  GeneralPane.strings (Hindi)
+//
+//  CotEditor
+//  https://coteditor.com
+//
+//  Created by Rajdeep Singha on 2023-12-28.
+//  Localized by Rajdeep Singha
+//
+//  ---------------------------------------------------------------------------
+//
+//  © 2022-2023 1024jp
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+
+/* Class = "NSTextFieldCell"; title = "On startup:"; ObjectID = "zDW-aW-9G8"; */
+"zDW-aW-9G8.title" = "स्टार्टअप में:";
+/* Class = "NSButtonCell"; title = "Reopen windows from last session"; ObjectID = "QX9-BI-SIL"; */
+"QX9-BI-SIL.title" = "पिछले सत्र की सभी विंडो खोलें";
+
+/* Class = "NSTextFieldCell"; title = "When nothing else is open:"; ObjectID = "wmw-xg-bSt"; */
+"wmw-xg-bSt.title" = "जब कुछ और ना खुला हों:";
+
+/* Class = "NSMenuItem"; title = "Create New Document"; ObjectID = "i4c-DG-ADS"; */
+"i4c-DG-ADS.title" = "नया दस्तावेज़ बनाएँ";
+/* Class = "NSMenuItem"; title = "Show Open Dialog"; ObjectID = "hIX-mh-cG4"; */
+"hIX-mh-cG4.title" = "खोलने की डायलॉग दिखाएँ";
+
+
+/* Class = "NSTextFieldCell"; title = "Document save:"; ObjectID = "Ki4-3Y-AZL"; */
+"Ki4-3Y-AZL.title" = "दस्तावेज़ सहेजें:";
+
+/* Class = "NSButtonCell"; title = "Enable Auto Save with Versions"; ObjectID = "SGo-FL-Pax"; */
+"SGo-FL-Pax.title" = "वर्ज़न्स के साथ ऑटो सहेजना सक्षम करें";
+/* Class = "NSTextFieldCell"; title = "A system feature that automatically overwrites your files while editing. Even if it turned off, CotEditor creates backup covertly for unexpected quit."; ObjectID = "sOa-Ea-zt9"; */
+"sOa-Ea-zt9.title" = "एक सिस्टम फ़ीचर जो ऑटोमैटिकली संपादित करते हुए फ़ाइल्स को ओवरराइट करता हैं। ये फ़ीचर ऑफ़ होने पर भी CotEditor अनपेक्षित अंत के लिए बैकअप बनाता हैं";
+
+
+/* Class = "NSTextFieldCell"; title = "When document is changed by another application:"; ObjectID = "x4n-2n-I3p"; */
+"x4n-2n-I3p.title" = "जब दूसरी एप्लीकेशन दस्तावेज़ को बदलें:";
+
+/* Class = "NSButtonCell"; title = "Keep CotEditor’s edition"; ObjectID = "sBH-MX-cTd"; */
+"sBH-MX-cTd.title" = "CotEditor की संस्करण रखें";
+/* Class = "NSButtonCell"; title = "Ask how to resolve"; ObjectID = "IkZ-EO-BSv"; */
+"IkZ-EO-BSv.title" = "समाधान पुछें";
+/* Class = "NSButtonCell"; title = "Update to modified edition"; ObjectID = "rpa-Di-f4s"; */
+"rpa-Di-f4s.title" = "बदले गए संस्करण में अपडेट करें";
+
+
+/* Class = "NSTextFieldCell"; title = "Dialog warnings:"; ObjectID = "Igx-ay-Cgz"; */
+"Igx-ay-Cgz.title" = "डायलॉग चेतावनियाँ:";
+/* Class = "NSButtonCell"; title = "Manage Warnings…"; ObjectID = "G2q-Im-jTO"; */
+"G2q-Im-jTO.title" = "चेतावनियाँ का प्रबंधन करें…";
+
+
+/* Class = "NSTextFieldCell"; title = "Command-line tool:"; ObjectID = "kQn-Uu-cqG"; */
+"kQn-Uu-cqG.title" = "कमांड-लाईन टूल:";
+/* Class = "NSButtonCell"; title = "Learn More"; ObjectID = "ltN-wn-m8M"; */
+"ltN-wn-m8M.title" = "अधिक जानें";
+/* Class = "NSTextFieldCell"; title = "With the 'cot' command-line tool, you can launch CotEditor and let it open files from the command line."; ObjectID = "c48-xK-Ag1"; */
+"c48-xK-Ag1.title" = "'cot' कमांड-लाईन टूल से CotEditor और उसमे फ़ाइल्स कमांड लाईन से खुली जा सकती हैं।";
+
+
+/* Class = "NSTextFieldCell"; title = "Software update:"; ObjectID = "geU-63-sAC"; */
+"geU-63-sAC.title" = "सॉफ़्टवेयर अपडेट:";
+
+/* Class = "NSButtonCell"; title = "Check for updates automatically"; ObjectID = "3423"; */
+"3423.title" = "ऑटोमैटिकली अपडेट जाँचें";
+
+/* Class = "NSButtonCell"; title = "Update to pre-releases when available"; ObjectID = "4aT-ka-sbv"; */
+"4aT-ka-sbv.title" = "उपलब्ध होने पर प्री-रिलीज़ संस्करण में अपडेट करें";
+/* Class = "NSTextFieldCell"; title = "Regardless of this setting, new pre-releases are always included while using a pre-release."; ObjectID = "chR-VY-cuI"; */
+"chR-VY-cuI.title" = "इस सेटिंग के बावजूद, प्री-रिलीज़ का उपयोग करते समय नए प्री-रिलीज़ को हमेशा शामिल किया जाता हैं।";
