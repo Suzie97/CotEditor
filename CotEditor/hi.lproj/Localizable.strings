@@ -1,11 +1,11 @@
 //
-//  Localizable.strings (English (UK))
+//  Localizable.strings (Hindi)
 //
 //  CotEditor
 //  https://coteditor.com
 //
-//  Created by 1024jp on 2022-01-30.
-//  Localized by 1024jp
+//  Created by Rajdeep Singha on 2024-17-01.
+//  Localized by Rajdeep Singha
 //
 //  ---------------------------------------------------------------------------
 //
@@ -25,12 +25,12 @@
 //
 
 // Basic button titles
-"OK" = "OK";
-"Cancel" = "Cancel";
-"Done" = "Done";
-"Start" = "Start";
-"Restore Defaults" = "Restore Defaults";
-"Delete" = "Delete";
+"OK" = "ठीक";
+"Cancel" = "रद्द करें";
+"Done" = "पूर्ण";
+"Start" = "शुरू करें";
+"Restore Defaults" = "डिफ़ॉल्ट रिस्टोर करें";
+"Delete" = "डिलीट करें";
 
 
 // words with symbols
@@ -40,22 +40,22 @@
 
 
 // Accessibility labels
-"Inspector" = "Inspector";
-"Document Inspector" = "Document Inspector";
-"Outline" = "Outline";
-"Warnings" = "Warnings";
-"Incompatible Characters" = "Incompatible Characters";
-"Filter" = "Filter";
-"Status Bar" = "Status Bar";
-"Editor" = "Editor";
-"Navigation Bar" = "Navigation Bar";
-"Line Numbers" = "Line Numbers";
-"Find Result" = "Find Result";
+"Inspector" = "इंस्पेक्टर";
+"Document Inspector" = "दस्तावेज़ इंस्टेक्टर";
+"Outline" = "रूपरेखा";
+"Warnings" = "संकेत";
+"Incompatible Characters" = "असंगत वर्ण";
+"Filter" = "फ़िल्टर";
+"Status Bar" = "स्टेटस बार";
+"Editor" = "एडिटर";
+"Navigation Bar" = "नेविगेशन बार";
+"Line Numbers" = "लाइन नंबर";
+"Find Result" = "परिणाम खोजें";
 
 
 // warning message occurs in multiple places
-"Are you sure you want to delete “%@”?" = "Are you sure you want to delete “%@”?";
-"This action cannot be undone." = "This action cannot be undone.";
+"Are you sure you want to delete “%@”?" = "क्या आप निश्चित हैं कि “%@” डिलीट करना चाहते हैं?";
+"This action cannot be undone." = "यह कार्य वापस नहीं किया जा सकता।";
 
 
 
