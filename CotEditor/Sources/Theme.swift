@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2014-2023 1024jp
+//  © 2014-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -168,6 +168,18 @@ struct Theme {
         
         self.selection.usesSystemSetting ? .selectedTextBackgroundColor : self.selection.color
     }
+    
+    
+    /// Returns the color for line highlight by considering the background opacity.
+    ///
+    /// - Parameter flag: `true` if the editor background to draw the highlight is opaque.
+    /// - Returns: A color.
+    func lineHighlightColor(forOpaqueBackground flag: Bool = true) -> NSColor {
+        
+        let color = self.lineHighlight.color
+        
+        return (flag || color.alphaComponent < 1) ? color : color.withAlphaComponent(0.7 * color.alphaComponent)
+    }
 }
 
 
@@ -199,11 +211,15 @@ extension Theme.Style: Codable {
     
     func encode(to encoder: any Encoder) throws {
         
-        guard let color = self.color.usingColorSpace(.genericRGB) else { throw CocoaError(.coderInvalidValue) }
+        guard let color = self.color.usingColorSpace(.genericRGB) else {
+            throw EncodingError.invalidValue(self.color, .init(codingPath: [CodingKeys.color],
+                                                               debugDescription: "The color could not be converted to the generic color space."))
+        }
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(color.colorCode(type: .hex), forKey: .color)
+        let type: ColorCodeType = (color.alphaComponent == 1) ? .hex : .hexWithAlpha
+        try container.encode(color.colorCode(type: type), forKey: .color)
     }
 }
 
@@ -233,7 +249,10 @@ extension Theme.SystemDefaultStyle: Codable {
     
     func encode(to encoder: any Encoder) throws {
         
-        guard let color = self.color.usingColorSpace(.genericRGB) else { throw CocoaError(.coderInvalidValue) }
+        guard let color = self.color.usingColorSpace(.genericRGB) else {
+            throw EncodingError.invalidValue(self.color, .init(codingPath: [CodingKeys.color],
+                                                               debugDescription: "The color could not be converted to the generic color space."))
+        }
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         

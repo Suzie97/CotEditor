@@ -9,7 +9,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2015-2023 1024jp
+//  © 2015-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,11 +40,7 @@
 
 
 // Accessibility labels
-"Inspector" = "Infofenster";
-"Document Inspector" = "Dokument-Informationen";
 "Outline" = "Gliederung";
-"Warnings" = "Vorwarnungen";
-"Incompatible Characters" = "Inkompatible Zeichen";
 "Filter" = "Filter";
 "Status Bar" = "Statusleiste";
 "Navigation Bar" = "Navigationsleiste";
@@ -152,46 +148,6 @@
 
 
 
-/* MARK: Regular Expression Reference */
-"Basic Regular Expression Syntax" = "Grundlegende Grammatik regulärer Ausdrücke";
-
-"Characters" = "Zeichen";
-"any character" = "beliebiges Zeichen";
-"new line character" = "Zeilenende (New Line)";
-"tab character" = "Tabulator-Zeichen";
-"word character" = "Buchstabe";
-"whitespace character" = "Leerzeichen";
-"non-whitespace character" = "kein Leerzeichen";
-"decimal number" = "Ziffer";
-"any character in range A to Z" = "irgendein Zeichen im Bereich A bis Z";
-"any character not in range A to Z" = "irgendein Zeichen nicht im Bereich A bis Z";
-
-"Anchors" = "Anker";
-"beginning of the line" = "Anfang der Zeile";
-"end of the line" = "Ende der Zeile";
-"word boundary" = "Wortgrenze";
-
-"Quantifiers" = "Quantoren";
-"1 or 0 times" = "null- oder einmal";
-"0 or more times" = "null- oder mehrmals";
-"1 or more times" = "einmal oder mehrmals";
-"at least n but not more than m times" = "mindestens n-mal und maximal m-mal";
-"at least n times" = "mindestens n-mal";
-"at least 0 but not more than n times" = "mindestens nullmal und maximal n-mal";
-"n times" = "n-mal";
-
-"Extended Groups" = "Erweiterte Gruppen";
-"look-ahead" = "look-ahead";
-"look-behind" = "look-behind";
-
-"Back Reference" = "Rückwärtsreferenz";
-"first match" = "erste Übereinstimmung";
-
-"The syntax conforms to the %@ specifications." = "Die Syntax entspricht den Spezifikationen von der %@.";  // %@ is the name of the regex engine below (ICU Regular Expressions)
-"ICU Regular Expressions" = "reguläre Ausdrücke von ICU";
-
-
-
 /* MARK: Find Settings View */
 "Advanced Find Options" = "Erweiterte Suchoptionen";
 
@@ -272,30 +228,31 @@
 "Line Endings to %@" = "Zeilenenden zu %@";
 
 // Convert or reinterpret encoding alert
-"Text encoding" = "Textcodierung";
+"Text encoding change" = "Änderung der Textcodierung";
 "Do you want to convert or reinterpret this document using “%@”?" = "Möchtest du dieses Dokument mit „%@“ umwandeln oder neu interpretieren?";
 "Convert" = "Umwandeln";
 "Reinterpret" = "Neu interpretieren";
 
-// Lossy encoding alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "Beim Speichern in „%@“ müssen einige Zeichen möglicherweise geändert oder gelöscht werden.";
-"Do you want to continue processing?" = "Möchtest du mit der Bearbeitung fortfahren?";
+// Encoding alarts
+"The document contains characters incompatible with “%@.”" = "Das Dokument enthält Zeichen, die mit „%@“ inkompatible sind.";
+
+// Lossy saving alert
+"Incompatible characters are substituted or deleted in saving. Do you want to continue processing?" = "Inkompatible Zeichen werden beim Speichern ersetzt oder gelöscht. Möchtest du mit der Bearbeitung fortfahren?";
 "Save Available Text" = " Verfügbaren Text speichern";
-"Show Incompatible Characters" = "Inkompatible Zeichen einblenden";
+"Review Incompatible Characters" = "Inkompatible Zeichen prüfen";
 
 // Encoding change with unsaved changes alert
 "The document has unsaved changes." = "Das Dokument hat ungespeicherte Änderungen.";
-"Do you want to discard the changes and reopen the document using “%@”?" = "Möchtest du die Änderungen verwerfen und das Dokument in der Codierung „%@“ erneut öffnen?";  // %@ is an encoding name.
+"Are you sure you want to discard your changes and reopen the document using “%@”?" = "Möchtest du deine Änderungen wirklich verwerfen und das Dokument in der Codierung „%@“ erneut öffnen?";  // %@ is an encoding name.
 "Discard Changes" = "Änderungen verwerfen";
 
 // Reinterpretation failed alert
 "The document doesn’t have a file to reinterpret." = "Das Dokument hat keine Datei zum Neuinterpretieren.";
-"The file “%@” couldn’t be reinterpreted using text encoding “%@.”" = "Die Datei „%@“ konnte nicht mithilfe der Codierung „%@“ neu interpretiert werden.";
-"The file may have been saved using a different text encoding, or it may not be a text file." = "Die Datei wurde möglicherweise mit einer anderen Textcodierung gesichert oder es handelt sich nicht um eine Textdatei.";
+"The document could not be reinterpreted using text encoding “%@.”" = "Das Dokument konnte nicht mithilfe der Codierung „%@“ neu interpretiert werden.";
+"The document may have been saved using a different text encoding, or it may not be a text file." = "Das Dokument wurde möglicherweise mit einer anderen Textcodierung gesichert oder es handelt sich nicht um eine Textdatei.";
 
 // incompatible characters alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "Beim Speichern in „%@“ müssen einige Zeichen möglicherweise geändert oder gelöscht werden.";
-"Do you want to change encoding and show incompatible characters?" = "Möchtest du die Codierung ändern und die inkompatiblen Zeichen zeigen?";
+"Incompatible characters are substituted or deleted in saving. Do you want to change the text encoding and review the incompatible characters?" = "Inkompatible Zeichen werden beim Speichern ersetzt oder gelöscht. Möchtest du die Textcodierung ändern und die inkompatiblen Zeichen überprüfen?";
 "Change Encoding" = "Codierung ändern";
 
 // Inconsistent line ending alert
@@ -478,23 +435,11 @@
 
 
 
-/* MARK: Inspector */
-// Outline
+/* MARK: FilterField */
+// Menu items
 "Recent Filters" = "Zuletzt gefiltert";
 "Clear Recent Filters" = "Letzte Filter löschen";
 "No Recent Filter" = "Keine letzten Filtereinträge";
-
-// Warnings
-"No issues found." = "Keine Probleme gefunden.";
-
-// Incompatible characters
-"Scanning incompatible characters…" = "Inkompatible Zeichen scannen …";
-"Found an incompatible character." = "Es wurde ein inkompatibles Zeichen gefunden.";
-"Found %lld incompatible characters." = "Es wurden %lld inkompatiblen Zeichen gefunden.";  // %lld is the number of characters
-
-// Inconsistent line endings
-"Found a line ending other than %@." = "Es wurde ein anderes Zeilenende als %@ gefunden.";  // %@ is a line ending type, such as LF
-"Found %lld line endings other than %@." = "Es wurden %lld andere Zeilenenden als %@ gefunden.";  // %lld is the number of inconsistent line endings and %@ is a line ending type, such as LF
 
 
 
@@ -589,6 +534,7 @@
 "Color Code" = "Farbcode";
 
 "Hexadecimal" = "Hexadezimal";
+"Hexadecimal with Alpha" = "Hexadezimal mit Alpha";
 "Hexadecimal (Short)" = "Hexadezimal (Kurz)";
 "CSS RGB" = "CSS RGB";
 "CSS RGBa" = "CSS RGBa";
@@ -899,7 +845,7 @@
 
 /* MARK: Encoding List View */
 "Drag encodings to change the order:" = "Ziehe die Codierungen, um die Reihenfolge zu ändern:";
-"This order is for the encoding menu and the encoding detection on file opening. By the detection, the higher items are more prioritized." = "Diese Reihenfolge wird für das Kodierungsmenü und die Kodierungserkennung beim Öffnen der Datei verwendet. Bei der Erkennung werden die höheren Codierungen stärker priorisiert.";
+"This order is for the encoding menu and the encoding detection on file opening. By the detection, the higher items are more prioritized." = "Diese Reihenfolge wird für das Codierungsmenü und die Codierungserkennung beim Öffnen der Datei verwendet. Bei der Erkennung werden die höheren Codierungen stärker priorisiert.";
 "Add Separator" = "Separator hinzufügen";
 "Delete Separator" = "Separator löschen";
 

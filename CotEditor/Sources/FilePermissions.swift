@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2018-2022 1024jp
+//  © 2018-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 //  limitations under the License.
 //
 
-struct FilePermissions {
+struct FilePermissions: Equatable {
     
     var user: Permission
     var group: Permission
@@ -32,7 +32,7 @@ struct FilePermissions {
     
     struct Permission: OptionSet {
         
-        let rawValue: UInt16
+        let rawValue: Int16
         
         static let read    = Self(rawValue: 0b100)
         static let write   = Self(rawValue: 0b010)
@@ -48,7 +48,7 @@ struct FilePermissions {
     }
     
     
-    init(mask: UInt16) {
+    init(mask: Int16) {
         
         self.user   = Permission(rawValue: (mask & 0b111 << 6) >> 6)
         self.group  = Permission(rawValue: (mask & 0b111 << 3) >> 3)
@@ -56,7 +56,8 @@ struct FilePermissions {
     }
     
     
-    var mask: UInt16 {
+    /// The `Int16` value.
+    var mask: Int16 {
         
         let userMask = self.user.rawValue << 6
         let groupMask = self.group.rawValue << 3
@@ -66,14 +67,14 @@ struct FilePermissions {
     }
     
     
-    /// The human-readable permission expression like "rwxr--r--"
+    /// The human-readable permission expression like “rwxr--r--”.
     var symbolic: String {
         
         self.user.symbolic + self.group.symbolic + self.others.symbolic
     }
     
     
-    /// The octal value expression like "644"
+    /// The octal value expression like “644”.
     var octal: String {
         
         String(self.mask, radix: 8)

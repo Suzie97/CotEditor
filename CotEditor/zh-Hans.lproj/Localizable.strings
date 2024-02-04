@@ -9,7 +9,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2014-2023 CotEditor Project
+//  © 2014-2024 CotEditor Project
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,11 +40,7 @@
 
 
 // Accessibility labels
-"Inspector" = "检查器";
-"Document Inspector" = "文稿信息";
 "Outline" = "大纲";
-"Warnings" = "警告";
-"Incompatible Characters" = "不兼容字符";
 "Filter" = "过滤";
 "Status Bar" = "状态栏";
 "Editor" = "编辑器";
@@ -152,46 +148,6 @@
 
 
 
-/* MARK: Regular Expression Reference */
-"Basic Regular Expression Syntax" = "基本正则表达式语法";
-
-"Characters" = "字符";
-"any character" = "任意字符";
-"new line character" = "换行符";
-"tab character" = "制表符";
-"word character" = "单词字符";
-"whitespace character" = "空格字符";
-"non-whitespace character" = "非空格字符";
-"decimal number" = "数字";
-"any character in range A to Z" = "A到Z范围内的任意字符";
-"any character not in range A to Z" = "不在A到Z范围内的任意字符";
-
-"Anchors" = "锚点";
-"beginning of the line" = "行首";
-"end of the line" = "行末";
-"word boundary" = "单词边界";
-
-"Quantifiers" = "数量";
-"1 or 0 times" = "1次或0次";
-"0 or more times" = "0次或更多";
-"1 or more times" = "1次或更多";
-"at least n but not more than m times" = "至少n次但不超过m次";
-"at least n times" = "至少n次";
-"at least 0 but not more than n times" = "至少0次但不超过n次";
-"n times" = "n次";
-
-"Extended Groups" = "扩展分组";
-"look-ahead" = "前向";
-"look-behind" = "后向";
-
-"Back Reference" = "回溯引用";
-"first match" = "首字匹配";
-
-"The syntax conforms to the %@ specifications." = "语法遵守%@规范";  // %@ is the name of the regex engine below (ICU Regular Expressions)
-"ICU Regular Expressions" = "ICU正则表达式";
-
-
-
 /* MARK: Find Settings View */
 "Advanced Find Options" = "高级查找选项";
 
@@ -272,30 +228,31 @@
 "Line Endings to %@" = "行尾变更为%@";
 
 // Convert or reinterpret encoding alert
-"Text encoding" = "文本编码";
+"Text encoding change" = "变更文本编码";
 "Do you want to convert or reinterpret this document using “%@”?" = "要使用“%@”进行转换或者再次解释吗？";
 "Convert" = "转换";
 "Reinterpret" = "再次解释";
 
-// Lossy encoding alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "保存为“%@”时一些字符可能需要被更改或者删除。";
-"Do you want to continue processing?" = "继续进行处理吗？";
+// Encoding alarts
+"The document contains characters incompatible with “%@.”" = "文档中包含与“%@”编码不兼容的字符。";  // %@ is an encoding name.
+
+// Lossy saving alert
+"Incompatible characters are substituted or deleted in saving. Do you want to continue processing?" = "保存时将替换或删除不兼容的字符。您确认要继续处理吗？";
 "Save Available Text" = "保存有效文本";
-"Show Incompatible Characters" = "显示不兼容字符";
+"Review Incompatible Characters" = "检查不兼容字符";
 
 // Encoding change with unsaved changes alert
 "The document has unsaved changes." = "该文稿中含有未保存的修改。";
-"Do you want to discard the changes and reopen the document using “%@”?" = "你确认放弃更改，并使用“%@”重新打开文稿吗？";  // %@ is an encoding name.
+"Are you sure you want to discard your changes and reopen the document using “%@”?" = "确定放弃您的修改并使用“%@”编码重新打开文档吗？";  // %@ is an encoding name.
 "Discard Changes" = "放弃更改";
 
 // Reinterpretation failed alert
 "The document doesn’t have a file to reinterpret." = "该文稿没有用来再次解释的文件。";
-"The file “%@” couldn’t be reinterpreted using text encoding “%@.”" = "文件“%@”无法使用“%@”编码再次解释。";
-"The file may have been saved using a different text encoding, or it may not be a text file." = "该文件可能已使用了不同的文本编码来存储，或者可能不是文本文件。";
+"The document could not be reinterpreted using text encoding “%@.”" = "文稿无法使用“%@”编码再次解释。";
+"The document may have been saved using a different text encoding, or it may not be a text file." = "该文稿可能已使用了不同的文本编码来存储，或者可能不是文本文件。";
 
 // incompatible characters alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "保存为“%@”时一些字符可能需要被更改或者删除。";
-"Do you want to change encoding and show incompatible characters?" = "改变编码并显示不兼容字符吗？";
+"Incompatible characters are substituted or deleted in saving. Do you want to change the text encoding and review the incompatible characters?" = "保存时将替换或删除不兼容的字符。您想要改变文本编码并检查不兼容字符吗？";
 "Change Encoding" = "更改编码";
 
 // Inconsistent line ending alert
@@ -478,23 +435,11 @@
 
 
 
-/* MARK: Inspector */
-// Outline
+/* MARK: FilterField */
+// Menu items
 "Recent Filters" = "最近的过滤";
 "Clear Recent Filters" = "清除最近记录";
 "No Recent Filter" = "没有最近的过滤";
-
-// Warnings
-"No issues found." = "没有发现问题。";
-
-// Incompatible characters
-"Scanning incompatible characters…" = "扫描不兼容字符…";
-"Found an incompatible character." = "发现1处不兼容字符。";
-"Found %lld incompatible characters." = "发现%lld处不兼容字符。";  // %lld is the number of characters
-
-// Inconsistent line endings
-"Found a line ending other than %@." = "发现1处不是%@的换行符";  // %@ is a line ending type, such as LF
-"Found %lld line endings other than %@." = "发现%lld处不是%@的换行符";  // %lld is the number of inconsistent line endings and %@ is a line ending type, such as LF
 
 
 
@@ -589,6 +534,7 @@
 "Color Code" = "颜色码";
 
 "Hexadecimal" = "十六进制";
+"Hexadecimal with Alpha" = "含Alpha的十六进制";
 "Hexadecimal (Short)" = "十六进制（短）";
 "CSS RGB" = "CSS RGB";
 "CSS RGBa" = "CSS RGBa";

@@ -9,7 +9,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  © 2004-2007 nakamuxu
-//  © 2014-2023 1024jp
+//  © 2014-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -147,9 +147,7 @@ final class DocumentController: NSDocumentController {
         // [caution] This method may be called from a background thread due to concurrent-opening.
         
         do {
-            let type = UTType(typeName)
-            try self.checkOpeningSafetyOfDocument(at: url, type: type)
-            
+            try self.checkOpeningSafetyOfDocument(at: url, type: typeName)
         } catch {
             // ask user for opening file
             try DispatchQueue.syncOnMain {
@@ -317,20 +315,18 @@ final class DocumentController: NSDocumentController {
     ///
     /// - Parameters:
     ///   - url: The location of the new document object.
-    ///   - type: The type of the document.
+    ///   - typeName: The type of the document.
     /// - Throws: `DocumentReadError`
-    private func checkOpeningSafetyOfDocument(at url: URL, type: UTType?) throws {
-        
-        assert(type != nil)
+    private nonisolated func checkOpeningSafetyOfDocument(at url: URL, type typeName: String) throws {
         
         // check if the file is possible binary
         let binaryTypes: [UTType] = [.image, .audiovisualContent, .archive]
-        if let type,
+        if let type = UTType(typeName),
            binaryTypes.contains(where: type.conforms(to:)),
            !type.conforms(to: .svg),  // SVG is plain-text (except SVGZ)
            url.pathExtension != "ts"  // "ts" extension conflicts between MPEG-2 streamclip file and TypeScript
         {
-            throw DocumentReadError(kind: .binaryFile(type: type), url: url)
+            throw DocumentReadError(.binaryFile(type: type), url: url)
         }
         
         // check if the file is enormously large
@@ -339,7 +335,7 @@ final class DocumentController: NSDocumentController {
            let fileSize = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize,
            fileSize > fileSizeThreshold
         {
-            throw DocumentReadError(kind: .tooLarge(size: fileSize), url: url)
+            throw DocumentReadError(.tooLarge(size: fileSize), url: url)
         }
     }
     
@@ -370,19 +366,26 @@ final class DocumentController: NSDocumentController {
 
 private struct DocumentReadError: LocalizedError, RecoverableError {
     
-    enum ErrorKind {
+    enum Code {
+        
         case binaryFile(type: UTType)
         case tooLarge(size: Int)
     }
     
+    var code: Code
+    var url: URL
     
-    let kind: ErrorKind
-    let url: URL
+    
+    init(_ code: Code, url: URL) {
+        
+        self.code = code
+        self.url = url
+    }
     
     
     var errorDescription: String? {
         
-        switch self.kind {
+        switch self.code {
             case .binaryFile:
                 return String(localized: "The file “\(self.url.lastPathComponent)” doesn’t appear to be text data.")
                 
@@ -395,7 +398,7 @@ private struct DocumentReadError: LocalizedError, RecoverableError {
     
     var recoverySuggestion: String? {
         
-        switch self.kind {
+        switch self.code {
             case .binaryFile(let type):
                 let localizedTypeName = type.localizedDescription ?? "unknown file type"
                 return String(localized: "The file appears to be \(localizedTypeName).\n\nDo you really want to open the file?")

@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2018-2023 1024jp
+//  © 2018-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,8 +40,9 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     var document: Document {
         
         didSet {
-            self.observeDocument()
-            self.observeSyntax()
+            if self.isViewShown {
+                self.observeDocument()
+            }
         }
     }
     
@@ -61,6 +62,7 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     
     private var filteredOutlineItems: [OutlineItem] = []  { didSet { self.outlineView?.reloadData() } }
     @objc dynamic var hasFilteredItems = false
+    @objc dynamic var filterString: String = ""
     
     private var documentObserver: AnyCancellable?
     private var syntaxObserver: AnyCancellable?
@@ -69,7 +71,6 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     private var isOwnSelectionChange = false
     
     @IBOutlet private weak var outlineView: NSOutlineView?
-    @IBOutlet private weak var searchField: NSSearchField?
     
     
     
@@ -96,7 +97,7 @@ final class OutlineViewController: NSViewController, DocumentOwner {
         // set accessibility
         self.view.setAccessibilityElement(true)
         self.view.setAccessibilityRole(.group)
-        self.view.setAccessibilityLabel(String(localized: "Outline"))
+        self.view.setAccessibilityLabel(String(localized: "Outline", table: "Inspector"))
     }
     
     
@@ -107,6 +108,8 @@ final class OutlineViewController: NSViewController, DocumentOwner {
         // workaround a long-standing issue in single column table views (2022-09, macOS 13)
         // cf. [#1365](https://github.com/coteditor/CotEditor/pull/1365)
         self.outlineView?.sizeLastColumnToFit()
+        
+        self.observeDocument()
         
         self.fontSizeObserver = UserDefaults.standard.publisher(for: .outlineViewFontSize, initial: true)
             .sink { [weak self] _ in
@@ -123,7 +126,7 @@ final class OutlineViewController: NSViewController, DocumentOwner {
             //    You can ignore text selection change at this time point as the outline selection will be updated when the parse finished.
             .filter { $0.textStorage?.editedMask.contains(.editedCharacters) == false }
             .debounce(for: .seconds(0.05), scheduler: RunLoop.main)
-            .sink { [weak self] in self?.invalidateCurrentLocation(textView: $0) }
+            .sink { [weak self] in self?.invalidateCurrentLocation(in: $0) }
     }
     
     
@@ -131,20 +134,10 @@ final class OutlineViewController: NSViewController, DocumentOwner {
         
         super.viewDidDisappear()
         
+        self.documentObserver = nil
+        self.syntaxObserver = nil
         self.selectionObserver = nil
         self.fontSizeObserver = nil
-    }
-    
-    
-    override var representedObject: Any? {
-        
-        didSet {
-            assert(representedObject == nil || representedObject is Document,
-                   "representedObject of \(self.className) must be an instance of \(Document.className())")
-            
-            self.observeDocument()
-            self.observeSyntax()
-        }
     }
     
     
@@ -168,10 +161,10 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     
     // MARK: Private Methods
     
-    /// User input string for filtering.
-    private var filterString: String {
+    /// The `OutlineItem`s currently shown in the view.
+    private var items: [OutlineItem] {
         
-        self.searchField?.stringValue ?? ""
+        self.filterString.isEmpty ? self.outlineItems : self.filteredOutlineItems
     }
     
     
@@ -191,9 +184,7 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     private func selectOutlineItem(at row: Int) {
         
         guard
-            let item = self.filterString.isEmpty
-                ? self.outlineItems[safe: row]
-                : self.filteredOutlineItems[safe: row],
+            let item = self.items[safe: row],
             item.title != .separator
         else { return }
         
@@ -212,25 +203,20 @@ final class OutlineViewController: NSViewController, DocumentOwner {
     private func observeDocument() {
         
         self.documentObserver = self.document.didChangeSyntax
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in self?.observeSyntax() }
-    }
-    
-    
-    /// Updates syntax observation for outline.
-    private func observeSyntax() {
-        
-        self.syntaxObserver = self.document.syntaxParser.$outlineItems
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.outlineItems = $0 }
+            .merge(with: Just(""))  // initial
+            .sink { [weak self] _ in
+                self?.syntaxObserver = self?.document.syntaxParser.$outlineItems
+                    .compactMap { $0 }
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] in self?.outlineItems = $0 }
+            }
     }
     
     
     /// Updates row selection to synchronize with editor's cursor location.
     ///
     /// - Parameter textView: The text view to apply the selection. when nil, the current focused editor will be used (the document can have multiple editors).
-    private func invalidateCurrentLocation(textView: NSTextView? = nil) {
+    private func invalidateCurrentLocation(in textView: NSTextView? = nil) {
         
         guard self.filterString.isEmpty else { return }
         guard let outlineView = self.outlineView else { return }
@@ -288,9 +274,7 @@ extension OutlineViewController: NSOutlineViewDataSource {
     /// Returns number of child items.
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
-        if !self.filterString.isEmpty { return self.filteredOutlineItems.count }
-        
-        return self.outlineItems.count
+        self.items.count
     }
     
     
@@ -304,9 +288,7 @@ extension OutlineViewController: NSOutlineViewDataSource {
     /// Returns child items.
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        if !self.filterString.isEmpty { return self.filteredOutlineItems[index] }
-        
-        return self.outlineItems[index]
+        self.items[index]
     }
     
     

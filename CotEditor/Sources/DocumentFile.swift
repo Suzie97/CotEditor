@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2018-2023 1024jp
+//  © 2018-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -44,8 +44,18 @@ struct DocumentFile {
     
     enum EncodingStrategy {
         
-        case automatic(priority: [CFStringEncoding], refersToTag: Bool)
+        case automatic(priority: [String.Encoding], refersToTag: Bool)
         case specific(String.Encoding)
+    }
+    
+    
+    struct Attributes {
+        
+        var creationDate: Date?
+        var modificationDate: Date?
+        var size: Int64
+        var permissions: FilePermissions
+        var owner: String?
     }
     
     
@@ -57,10 +67,9 @@ struct DocumentFile {
     
     let data: Data
     let string: String
-    let attributes: [FileAttributeKey: Any]
+    let attributes: Attributes
     let fileEncoding: FileEncoding
     let xattrEncoding: String.Encoding?
-    let permissions: FilePermissions
     let isVerticalText: Bool
     let allowsInconsistentLineEndings: Bool
     
@@ -75,7 +84,7 @@ struct DocumentFile {
     ///   - encodingStrategy: The text encoding to read the file.
     init(fileURL: URL, encodingStrategy: EncodingStrategy) throws {
         
-        guard fileURL.isFileURL else { throw CocoaError(.fileReadUnknown) }
+        guard fileURL.isFileURL else { throw CocoaError.error(.fileReadUnknown, url: fileURL) }
         
         let data = try Data(contentsOf: fileURL)  // FILE_READ
         let attributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)  // FILE_READ
@@ -92,27 +101,22 @@ struct DocumentFile {
         switch encodingStrategy {
             case .automatic(let priority, let refersToTag):
                 (content, encoding) = try Self.string(data: data, xattrEncoding: self.xattrEncoding,
-                                                      suggestedCFEncodings: priority,
+                                                      suggestedEncodings: priority,
                                                       refersToEncodingTag: refersToTag)
             case .specific(let readingEncoding):
-                encoding = readingEncoding
-                if !data.isEmpty {
-                    guard let string = String(bomCapableData: data, encoding: encoding) else {
-                        throw CocoaError.error(.fileReadInapplicableStringEncoding, userInfo: [NSStringEncodingErrorKey: encoding.rawValue], url: fileURL)
-                    }
-                    content = string
-                } else {
-                    content = ""
+                guard let string = String(bomCapableData: data, encoding: readingEncoding) else {
+                    throw CocoaError.error(.fileReadInapplicableStringEncoding, userInfo: [NSStringEncodingErrorKey: readingEncoding.rawValue])
                 }
+                content = string
+                encoding = readingEncoding
         }
         
         // set properties
         self.data = data
-        self.attributes = attributes
         self.string = content
+        self.attributes = Attributes(dictionary: attributes)
         self.fileEncoding = FileEncoding(encoding: encoding,
                                          withUTF8BOM: (encoding == .utf8) && data.starts(with: Unicode.BOM.utf8.sequence))
-        self.permissions = FilePermissions(mask: attributes[.posixPermissions] as? UInt16 ?? 0)
     }
     
     
@@ -124,10 +128,10 @@ struct DocumentFile {
     /// - Parameters:
     ///   - data: The data to encode.
     ///   - xattrEncoding: The text encoding read from the file's extended attributes.
-    ///   - suggestedCFEncodings: The list of CSStringEncodings to test the encoding.
+    ///   - suggestedEncodings: The list of encodings to test the encoding.
     ///   - refersToEncodingTag: The boolean whether to refer encoding tag in the file content.
     /// - Returns: The decoded string and used encoding.
-    private static func string(data: Data, xattrEncoding: String.Encoding?, suggestedCFEncodings: [CFStringEncoding], refersToEncodingTag: Bool) throws -> (String, String.Encoding) {
+    private static func string(data: Data, xattrEncoding: String.Encoding?, suggestedEncodings: [String.Encoding], refersToEncodingTag: Bool) throws -> (String, String.Encoding) {
         
         // try interpreting with xattr encoding
         if let xattrEncoding {
@@ -139,11 +143,12 @@ struct DocumentFile {
         
         // detect encoding from data
         var usedEncoding: String.Encoding?
-        let string = try String(data: data, suggestedCFEncodings: suggestedCFEncodings, usedEncoding: &usedEncoding)
+        let string = try String(data: data, suggestedEncodings: suggestedEncodings, usedEncoding: &usedEncoding)
         
         // try reading encoding declaration and take priority of it if it seems well
         if refersToEncodingTag,
-           let scannedEncoding = string.scanEncodingDeclaration(upTo: self.maxEncodingScanLength, suggestedCFEncodings: suggestedCFEncodings),
+           let scannedEncoding = string.scanEncodingDeclaration(upTo: self.maxEncodingScanLength),
+           suggestedEncodings.contains(scannedEncoding),
            scannedEncoding != usedEncoding,
            let string = String(bomCapableData: data, encoding: scannedEncoding)
         {
@@ -155,5 +160,18 @@ struct DocumentFile {
         }
         
         return (string, encoding)
+    }
+}
+
+
+extension DocumentFile.Attributes {
+    
+    init(dictionary: [FileAttributeKey: Any]) {
+        
+        self.creationDate = dictionary[.creationDate] as? Date
+        self.modificationDate = dictionary[.modificationDate] as? Date
+        self.size = dictionary[.size] as? Int64 ?? 0
+        self.permissions = FilePermissions(mask: dictionary[.posixPermissions] as? Int16 ?? 0)
+        self.owner = dictionary[.ownerAccountName] as? String
     }
 }

@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2014-2023 1024jp
+//  © 2014-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import ColorCode
 }
 
 
-final class ColorCodePanelController: NSObject, NSWindowDelegate {
+@MainActor final class ColorCodePanelController: NSObject, NSWindowDelegate {
     
     static let shared = ColorCodePanelController()
     
@@ -144,7 +144,7 @@ private struct ColorCodePanelAccessory: View {
                 } label: {
                     EmptyView()
                 }
-                .onChange(of: self.type, perform: self.apply(type:))
+                .onChange(of: self.type) { self.apply(type: $0) }
                 .labelsHidden()
                 
                 Button("Insert") {
@@ -177,7 +177,7 @@ private struct ColorCodePanelAccessory: View {
     /// Sets the color representing the given code to the color panel and selects the corresponding color code type.
     ///
     /// - Parameter colorCode: The color code of the color to set.
-    private func apply(colorCode: String) {
+    @MainActor private func apply(colorCode: String) {
         
         var type: ColorCodeType?
         guard
@@ -193,7 +193,7 @@ private struct ColorCodePanelAccessory: View {
     /// Converts the color code to the specified code type.
     ///
     /// - Parameter rawValue: The rawValue of ColorCodeType.
-    private func apply(type rawValue: Int) {
+    @MainActor private func apply(type rawValue: Int) {
         
         guard
             let type = ColorCodeType(rawValue: rawValue),
@@ -228,7 +228,7 @@ private struct ColorCodePanelAccessory: View {
 
 private extension ColorCodeType {
     
-    static let hexTypes: [Self] = [.hex, .shortHex]
+    static let hexTypes: [Self] = [.hex, .hexWithAlpha, .shortHex]
     static let cssTypes: [Self] = [.cssRGB, .cssRGBa, .cssHSL, .cssHSLa, .cssKeyword]
     
     
@@ -236,6 +236,7 @@ private extension ColorCodeType {
         
         switch self {
             case .hex: "Hexadecimal"
+            case .hexWithAlpha: "Hexadecimal with Alpha"
             case .shortHex: "Hexadecimal (Short)"
             case .cssRGB: "CSS RGB"
             case .cssRGBa: "CSS RGBa"

@@ -1,11 +1,11 @@
 # CotEditor
 
-CotEditor is a lightweight plain-text editor for macOS. The project aims to provide a general plain-text editor for everyone with intuitive macOS-native user interface.
+CotEditor is a lightweight plain-text editor for macOS. The project aims to provide a general plain-text editor for everyone with an intuitive macOS-native user interface.
 
 - __Requirement__: macOS 13 Ventura or later
 - __Web Site__: <https://coteditor.com>
 - __Mac App Store__: <https://itunes.apple.com/app/coteditor/id1024640650?ls=1>
-- __Languages__: English, French, German, Italian, Japanese, Portuguese, Spanish, Simplified Chinese, Traditional Chinese, Turkish
+- __Languages__: English, Czech, French, German, Italian, Japanese, Portuguese, Spanish, Simplified Chinese, Traditional Chinese, Turkish
 
 <img src="screenshot@2x.png" width="732" alt="screenshot"/>
 
@@ -13,13 +13,13 @@ CotEditor is a lightweight plain-text editor for macOS. The project aims to prov
 
 ## Source Code
 
-CotEditor is a purely macOS native application written in Swift. It adopts Cocoa's document-based application architecture.
+CotEditor is a purely macOS native application written in Swift. It adopts Cocoa's document-based application architecture and respects the power of `NSTextView`.
 
 
 ### Development Environment
 
 - macOS 14 Sonoma
-- Xcode 15.1
+- Xcode 15.2
 - Swift 5.9
 - Sandbox enabled
 
@@ -60,6 +60,6 @@ For those people who just want to build and play with CotEditor locally.
 
 © 2005-2009 nakamuxu,
 © 2011, 2014 usami-k,
-© 2013-2023 1024jp.
+© 2013-2024 1024jp.
 
 The source code is licensed under the terms of the __Apache License, Version 2.0__. The image resources are licensed under the terms of the [__Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License__](https://creativecommons.org/licenses/by-nc-nd/4.0/). See [LICENSE](LICENSE) for details.

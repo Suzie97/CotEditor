@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2022-2023 1024jp
+//  © 2022-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,14 +31,14 @@ struct InsetTextField: NSViewRepresentable {
     typealias NSViewType = PaddingTextField
     
     @Binding private var text: String
-    private let prompt: LocalizedStringResource?
+    private let prompt: String?
     
     private var insets: EdgeInsets = .init()
     private var usesMonospacedDigit = false
     private var onSubmit: () -> Void = {}
     
     
-    init(text: Binding<String>, prompt: LocalizedStringResource? = nil) {
+    init(text: Binding<String>, prompt: String? = nil) {
         
         self._text = text
         self.prompt = prompt
@@ -51,7 +51,7 @@ struct InsetTextField: NSViewRepresentable {
         textField.leadingPadding = self.insets.leading
         textField.trailingPadding = self.insets.trailing
         textField.delegate = context.coordinator
-        textField.placeholderString = self.prompt.flatMap(String.init(localized:))
+        textField.placeholderString = self.prompt
         textField.isEditable = true
         
         return textField
@@ -190,7 +190,9 @@ final class PaddingTextField: NSTextField {
 // MARK: - Preview
 
 #Preview {
-    InsetTextField(text: .constant(""), prompt: "Prompt")
+    @State var text = ""
+    
+    return InsetTextField(text: $text, prompt: "Prompt")
         .inset(.leading, 20)
         .frame(width: 160)
 }

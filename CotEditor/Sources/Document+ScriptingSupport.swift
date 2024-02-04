@@ -9,7 +9,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  © 2004-2007 nakamuxu
-//  © 2014-2023 1024jp
+//  © 2014-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -234,19 +234,16 @@ extension Document {
         let withBOM = arguments["BOM"] as? Bool ?? false
         let fileEncoding = FileEncoding(encoding: encoding, withUTF8BOM: withBOM)
         
-        if fileEncoding == self.fileEncoding {
-            return true
-        }
+        guard fileEncoding != self.fileEncoding else { return true }
         
         let lossy = (arguments["lossy"] as? Bool) ?? false
-        
-        do {
-            try self.changeEncoding(to: fileEncoding, lossy: lossy)
-        } catch {
+        if !lossy, !self.canBeConverted(to: fileEncoding) {
             command.scriptErrorNumber = errOSAGeneralError
-            command.scriptErrorString = error.localizedDescription
+            command.scriptErrorString = LossyEncodingError(encoding: fileEncoding).localizedDescription
             return false
         }
+        
+        self.changeEncoding(to: fileEncoding)
         
         return true
     }

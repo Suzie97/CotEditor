@@ -9,7 +9,7 @@
 //  ---------------------------------------------------------------------------
 //
 //  © 2004-2007 nakamuxu
-//  © 2014-2023 1024jp
+//  © 2014-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -91,10 +91,7 @@ class EditorTextView: NSTextView, Themable, CurrentLineHighlighting, MultiCursor
         
         didSet {
             self.needsUpdateInsertionIndicators = true
-            
-            if ProcessInfo.processInfo.operatingSystemVersion.majorVersion < 14 {
-                self.updateInsertionPointTimer()
-            }
+            self.updateInsertionPointTimer()
         }
     }
     var selectionOrigins: [Int] = []
@@ -286,7 +283,7 @@ class EditorTextView: NSTextView, Themable, CurrentLineHighlighting, MultiCursor
             self.applicationObserver = Publishers.Merge(
                 NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification, object: NSApp),
                 NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification, object: NSApp))
-            .filter { [unowned self] _ in self.window?.firstResponder == self }
+            .filter { [weak self] _ in self?.window?.firstResponder == self }
             .sink { [unowned self] _ in
                 for indicator in self.insertionIndicators {
                     indicator.displayMode = NSApp.isActive ? .automatic : .hidden
@@ -411,7 +408,7 @@ class EditorTextView: NSTextView, Themable, CurrentLineHighlighting, MultiCursor
             .sink { [weak self] in
                 self?.drawsBackground = $0
                 self?.enclosingScrollView?.drawsBackground = $0
-                self?.lineHighlightColor = self?.lineHighlightColor?.withAlphaComponent($0 ? 1.0 : 0.7)
+                self?.lineHighlightColor = self?.theme?.lineHighlightColor(forOpaqueBackground: $0)
             }
     }
     
@@ -877,16 +874,11 @@ class EditorTextView: NSTextView, Themable, CurrentLineHighlighting, MultiCursor
         guard let menu = super.menu(for: event) else { return nil }
         
         // remove unwanted menu items
-        for item in menu.items {
-            guard
-                let submenu = item.submenu,
-                submenu.items.contains(where: {
-                    $0.action == #selector(changeLayoutOrientation) ||  // Layout Orientation submenu
-                    $0.action == #selector(NSFontManager.orderFrontFontPanel)  // Font submenu
-                })
-            else { continue }
-            
-            menu.removeItem(item)
+        menu.items.removeAll { item in
+            item.submenu?.items.contains {
+                $0.action == #selector(changeLayoutOrientation) ||  // Layout Orientation submenu
+                $0.action == #selector(NSFontManager.orderFrontFontPanel)  // Font submenu
+            } ?? false
         }
         
         // add "Copy as Rich Text" menu item
@@ -1404,9 +1396,7 @@ class EditorTextView: NSTextView, Themable, CurrentLineHighlighting, MultiCursor
         
         self.textColor = theme.text.color
         self.backgroundColor = theme.background.color
-        self.lineHighlightColor = self.isOpaque
-            ? theme.lineHighlight.color
-            : theme.lineHighlight.color.withAlphaComponent(0.7)
+        self.lineHighlightColor = theme.lineHighlightColor(forOpaqueBackground: self.isOpaque)
         self.insertionPointColor = theme.effectiveInsertionPointColor
         if #available(macOS 14, *) {
             for indicator in self.insertionIndicators {
@@ -1774,7 +1764,7 @@ extension EditorTextView {
             }
             if movement == NSIllegalTextMovement,
                let character = event.characters?.utf16.first,
-               character < 0xF700, character != UInt16(NSDeleteCharacter)
+               character < 0xF700, character != Int16(NSDeleteCharacter)
             {  // standard key-input
                 self.needsRecompletion = true
             }

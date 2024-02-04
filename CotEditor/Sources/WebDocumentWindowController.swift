@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2016-2023 1024jp
+//  © 2016-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,11 +34,7 @@ final class WebDocumentWindowController: NSWindowController {
         
         let viewController = WebDocumentViewController(fileURL: fileURL)
         let window = NSWindow(contentViewController: viewController)
-        window.setContentSize(NSSize(width: 480, height: 480))
-        window.styleMask = [.closable, .resizable, .titled]
-        window.titlebarAppearsTransparent = true
-        window.backgroundColor = .textBackgroundColor
-        window.center()
+        window.styleMask = [.closable, .resizable, .titled, .fullSizeContentView]
         
         self.init(window: window)
     }
@@ -62,6 +58,8 @@ private final class WebDocumentViewController: NSViewController {
         self.fileURL = fileURL
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = ""
     }
     
     
@@ -76,6 +74,7 @@ private final class WebDocumentViewController: NSViewController {
         let webView = WKWebView()
         webView.navigationDelegate = self
         webView.isHidden = true
+        webView.frame.size = NSSize(width: 480, height: 480)
         webView.loadFileURL(self.fileURL, allowingReadAccessTo: self.fileURL)
         
         self.view = webView
@@ -97,9 +96,7 @@ extension WebDocumentViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        if let title = webView.title {
-            webView.window?.title = title
-        }
+        self.title = webView.title
         
         // avoid flashing view on the first launch in Dark Mode
         webView.animator().isHidden = false

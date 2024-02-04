@@ -1,6 +1,55 @@
 # Change Log
 
-4.7.2 (unreleased)
+4.7.4 (unreleased)
+--------------------------
+
+### New Features
+
+- Support the alpha channel in theme settings (Custom themes using alpha channel are not compatible with CotEditor prior 4.7.4).
+- Make sections in the document inspector collapsable.
+- Add Czech localization (Thanks to Martin Růžička!).
+
+
+### Improvements
+
+- Add “Hexadecimal with Alpha” format to the Color Code panel.
+- Tweak the background color of the “Anura (Dark)” theme.
+
+
+### Fixes
+
+- Fix an issue on macOS 13 that the stepper in the custom tab width view worked only once.
+- Fix an issue that the character code point display in the document inspector could be broken when the application is localized.
+- Fix an issue that the custom font size for the outline inspector was not fully applied.
+- Fix an issue that a part of the Portuguese localization was not applied.
+- Fix Italian localization (Thanks to Roccobot and DAnn2012!).
+
+
+
+4.7.3 (627)
+--------------------------
+
+### Improvements
+
+- When the file encoding is incompatible with the document content, display a notification instead of silently overwriting the document file with lossy data in autosaving until the user explicitly allows it.
+- Suppress displaying the dialog for saving in an incompatible encoding when the user once allowed it.
+- Update the C syntax to improve highlighting numbers.
+-  Deprecate the future to interpret `Shift_JIS` as Shift JIS or Shift JIS X0213 according to the user's priority setting when referring to encoding declarations in documents in encoding detection.
+- Improve stability.
+- [trivial] Improve alert messages for incompatible text encodings.
+
+
+### Fixes
+
+- Fix an issue that the application crashed when editing a specific pattern of color code.
+- Fix an issue that the outline inspector was empty and not updated under certain circumstances.
+- Fix an issue that the encoding reinterpretation option dialog is not displayed when the user changes a document encoding to UTF-8.
+- Fix an issue that the saved user syntax definition file was not deleted when a customized syntax was restored to the default.
+- Fix an issue that the initial window size on the first launch was too small.
+
+
+
+4.7.2 (625)
 --------------------------
 
 ### Improvements
@@ -12,8 +61,10 @@
 
 ### Fixes
 
+- Fix an issue that the application crashed when trying to convert the encoding of an unsaved document to one incompatible with the content.
 - Fix an issue that the application could not open a document containing a specific pattern of letters.
 - Fix an issue that the validation error message in the syntax editor did not change even when errors exist.
+- Fix an issue that the incompatible characters list did not update under the specific condition.
 - Fix a possible crash when opening a corrupt file.
 - Fix a possible crash when moving the cursor in the editor.
 

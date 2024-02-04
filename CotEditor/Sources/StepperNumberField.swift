@@ -8,7 +8,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2023 1024jp
+//  © 2023-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ struct StepperNumberField: View {
     private var bounds: ClosedRange<Int>
     private var step: Int.Stride
     private var promptText: LocalizedStringKey?
+    
     private var fieldWidth: CGFloat? = 32
     
     
@@ -56,7 +57,7 @@ struct StepperNumberField: View {
     var body: some View {
         
         HStack(spacing: 4) {
-            TextField(value: $value, format: .ranged(self.bounds, defaultValue: self.defaultValue), prompt: self.prompt) {
+            TextField(text: $value.string(in: self.bounds, defaultValue: self.defaultValue), prompt: self.prompt) {
                 EmptyView()
             }
             .monospacedDigit()
@@ -97,12 +98,25 @@ struct StepperNumberField: View {
 
 
 
+@available(macOS, deprecated: 14, message: "Simply bind with `format: .ranged(self.bounds)`.")
+private extension Binding where Value == Int {
+    
+    /// Workarounds the issue on macOS 13 that Stepper cannot share its bound value with another controllers.
+    func string(in bounds: ClosedRange<Int>, defaultValue: Int? = nil) -> Binding<String> {
+        
+        Binding<String>(
+            get: { self.wrappedValue.formatted() },
+            set: { self.wrappedValue = (Int($0) ?? defaultValue ?? 0).clamped(to: bounds) }
+        )
+    }
+}
+
+
+
 // MARK: - Preview
 
-struct StepperNumberField_Previews: PreviewProvider {
+#Preview {
+    @State var value = 4
     
-    static var previews: some View {
-        
-        StepperNumberField(value: .constant(4), in: 0...10)
-    }
+    return StepperNumberField(value: $value, in: 0...10)
 }

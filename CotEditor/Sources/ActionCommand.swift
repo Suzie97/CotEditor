@@ -49,7 +49,7 @@ struct ActionCommand: Identifiable {
     
     /// Performs the original menu action.
     @discardableResult
-    func perform() -> Bool {
+    @MainActor func perform() -> Bool {
         
         let sender = NSMenuItem()
         sender.title = self.title
@@ -98,7 +98,7 @@ extension ActionCommand {
 extension NSApplication {
     
     /// All active ActionCommands in the main menu for the Quick Action bar.
-    var actionCommands: [ActionCommand] {
+    final var actionCommands: [ActionCommand] {
         
         self.mainMenu?.items.flatMap(\.actionCommands) ?? []
     }

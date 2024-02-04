@@ -9,7 +9,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2016-2023 1024jp
+//  © 2016-2024 1024jp
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,7 +41,17 @@ final class FilePermissionTests: XCTestCase {
     
     func testFormatStyle() {
         
-        XCTAssertEqual(0o777.formatted(.filePermissions(.full)), "777 (-rwxrwxrwx)")
-        XCTAssertEqual(0o643.formatted(.filePermissions(.full)), "643 (-rw-r---wx)")
+        XCTAssertEqual(FilePermissions(mask: 0o777).formatted(.filePermissions(.full)), "777 (-rwxrwxrwx)")
+        XCTAssertEqual(FilePermissions(mask: 0o643).formatted(.filePermissions(.full)), "643 (-rw-r---wx)")
+    }
+    
+    
+    func testCalculation() {
+        
+        var permissions = FilePermissions(mask: 0o644)
+        permissions.user.insert(.execute)
+        
+        XCTAssertTrue(permissions.user.contains(.execute))
+        XCTAssertEqual(permissions.mask, 0o744)
     }
 }

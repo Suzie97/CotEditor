@@ -9,7 +9,7 @@
 //
 //  ---------------------------------------------------------------------------
 //
-//  © 2019-2023 CotEditor Project
+//  © 2019-2024 CotEditor Project
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,11 +40,7 @@
 
 
 // Accessibility labels
-"Inspector" = "Inspecteur";
-"Document Inspector" = "Inspecteur de document";
 "Outline" = "Structure";
-"Warnings" = "Avertissements";
-"Incompatible Characters" = "Caractères incompatibles";
 "Filter" = "Filter";
 "Status Bar" = "Barre d’état";
 "Editor" = "Éditeur";
@@ -152,46 +148,6 @@
 
 
 
-/* MARK: Regular Expression Reference */
-"Basic Regular Expression Syntax" = "Syntaxe de base des expressions régulières";
-
-"Characters" = "Caractères";
-"any character" = "N’importe quel caractère";
-"new line character" = "Nouvelle ligne";
-"tab character" = "Tabulation";
-"word character" = "Mot";
-"whitespace character" = "Espace";
-"non-whitespace character" = "Pas un espace";
-"decimal number" = "Chiffre";
-"any character in range A to Z" = "Caractère entre A et Z";
-"any character not in range A to Z" = "Tout sauf un caractère entre A et Z";
-
-"Anchors" = "Ancrages";
-"beginning of the line" = "Début de la ligne";
-"end of the line" = "Fin de la ligne";
-"word boundary" = "Début ou fin de mot";
-
-"Quantifiers" = "Quantificateurs";
-"1 or 0 times" = "1 fois ou 0";
-"0 or more times" = "0 fois ou plus";
-"1 or more times" = "1 fois ou plus";
-"at least n but not more than m times" = "Au moins n mais pas plus de m fois";
-"at least n times" = "Au moins n fois";
-"at least 0 but not more than n times" = "Au moins 0 fois mais plus de n fois";
-"n times" = "n fois";
-
-"Extended Groups" = "Groupes étendus";
-"look-ahead" = "Test avant";
-"look-behind" = "Test arrière";
-
-"Back Reference" = "Références passées";
-"first match" = "Première correspondance";
-
-"The syntax conforms to the %@ specifications." = "Syntaxe conforme aux spécifications %@.";  // %@ is the name of the regex engine below (ICU Regular Expressions)
-"ICU Regular Expressions" = "ICU Regular Expressions";
-
-
-
 /* MARK: Find Settings View */
 "Advanced Find Options" = "Options avancées de recherche";
 
@@ -272,30 +228,31 @@
 "Line Endings to %@" = "Fins de ligne en %@";
 
 // Convert or reinterpret encoding alert
-"Text encoding" = "Encodage du texte";
+"Text encoding change" = "Modification de l'encodage du texte";  // FIXME: needs review
 "Do you want to convert or reinterpret this document using “%@”?" = "Voulez-vous convertir le document ou bien le réinterpréter en utilisant « %@ » ?";
 "Convert" = "Convertir";
 "Reinterpret" = "Ré-interpréter";
 
-// Lossy encoding alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "Certains caractères devront être altérés ou supprimés en sauvegardant en « %@ ».";
-"Do you want to continue processing?" = "Voulez-vous poursuivre ?";
+// Encoding alarts
+"The document contains characters incompatible with “%@.”" = "Le document contient des caractères incompatibles avec « %@ ».";  // FIXME: needs review
+
+// Lossy saving alert
+"Incompatible characters are substituted or deleted in saving. Do you want to continue processing?" = "Certains caractères devront être altérés ou supprimés en sauvegardant. Voulez-vous poursuivre ?";  // FIXME: needs review
 "Save Available Text" = "Sauvegarder les caractères disponibles";
-"Show Incompatible Characters" = "Montrer les caractères incompatibles";
+"Review Incompatible Characters" = "Passer en revue les caractères incompatibles";  // FIXME: needs review
 
 // Encoding change with unsaved changes alert
 "The document has unsaved changes." = "Le document contient des modifications non sauvegardées.";
-"Do you want to discard the changes and reopen the document using “%@”?" = "Voulez-vous abandonner les modifications et réouvrir le document en utilisant « %@ » ?";
+"Are you sure you want to discard your changes and reopen the document using “%@”?" = "Voulez-vous vraiment abandonner les modifications et réouvrir le document en utilisant « %@ » ?";  // %@ is an encoding name.  // FIXME: needs review
 "Discard Changes" = "Abandonner les modifications";
 
 // Reinterpretation failed alert
 "The document doesn’t have a file to reinterpret." = "Le document n’a pas de fichier à réinterpréter.";
-"The file “%@” couldn’t be reinterpreted using text encoding “%@.”" = "Le fichier « %@ » n’a pas pu être réinterprété en utilisant l’encodage « %@ ».";
-"The file may have been saved using a different text encoding, or it may not be a text file." = "Le fichier a peut-être été sauvegardé dans un encodage différent, ou bien il ne s’agit pas d’un fichier texte.";
+"The document could not be reinterpreted using text encoding “%@.”" = "Le document n’a pas pu être réinterprété en utilisant l’encodage « %@ ».";
+"The document may have been saved using a different text encoding, or it may not be a text file." = "Le document a peut-être été sauvegardé dans un encodage différent, ou bien il ne s’agit pas d’un fichier texte.";
 
 // incompatible characters alert
-"Some characters would have to be changed or deleted in saving as “%@.”" = "Certains caractères devront être altérés ou supprimés en sauvegardant en « %@ ».";
-"Do you want to change encoding and show incompatible characters?" = "Voulez-vous changer l’encodage et afficher les caractères incomptables ?";
+"Incompatible characters are substituted or deleted in saving. Do you want to change the text encoding and review the incompatible characters?" = "Les caractères incompatibles sont remplacés ou supprimés lors de l'enregistrement. Voulez-vous modifier l'encodage du texte et revoir les caractères incompatibles ?";  // FIXME: needs review
 "Change Encoding" = "Changer l’encodage";
 
 // Inconsistent line ending alert
@@ -478,23 +435,11 @@
 
 
 
-/* MARK: Inspector */
-// Outline
+/* MARK: FilterField */
+// Menu items
 "Recent Filters" = "Filtres récents";
 "Clear Recent Filters" = "Effacer l’historique";
 "No Recent Filter" = "Aucun filtre récent";
-
-// Warnings
-"No issues found." = "Aucun problème trouvé.";
-
-// Incompatible characters
-"Scanning incompatible characters…" = "Recherche de caractères incompatibles …";
-"Found an incompatible character." = "Caractère incompatible trouvé.";
-"Found %lld incompatible characters." = "%lld caractères incompatibles trouvés.";  // %lld is the number of characters
-
-// Inconsistent line endings
-"Found a line ending other than %@." = "Fin de ligne autre que %@ trouvée.";  // %@ is a line ending type, such as LF
-"Found %lld line endings other than %@." = "%lld fins de ligne autres que %@ trouvées.";  // %lld is the number of inconsistent line endings and %@ is a line ending type, such as LF
 
 
 
@@ -589,6 +534,7 @@
 "Color Code" = "Code couleur";
 
 "Hexadecimal" = "Hexa";
+"Hexadecimal with Alpha" = "Hexadecimal avec Alpha";
 "Hexadecimal (Short)" = "Hexa (Court)";
 "CSS RGB" = "CSS RGB";
 "CSS RGBa" = "CSS RGBa";
@@ -709,7 +655,7 @@
 "Strings" = "Chaînes de caractères";
 "Characters" = "Caractères";
 "Comments" = "Commentaires";
-"Outline" = "Struture";
+"Outline" = "Structure";
 "Completion List" = "Autocomplétion";
 "File Mapping" = "Mappage de fichiers";
 "Syntax Information" = "Infos de la syntaxe";
